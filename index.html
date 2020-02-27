@@ -41,7 +41,6 @@
                 var tarr = [];
                 for (var j=0; j<headers.length; j++) {
                     if (headers[j] == 'date') {
-                        console.log(new Date (data[j]), data[j]);
                         tarr.push(new Date (data[j]));
                     } else {
                         tarr.push(Number(data[j]));
@@ -73,12 +72,13 @@
             title: 'COVID-19 in Thailand',
             // subtitle: 'in millions of dollars (USD)'
           },
-          // curveType: 'function',
-          // legend: { position: 'bottom' },
+          legend: 'none',
+          pointSize: 30,
+          pointShape: 'square',
           series: {
             0: { color: '#f58231' },
             1: { color: '#3cb44b' },
-            4: { color: '#e6194b' },
+            2: { color: '#e6194b' },
           }
         };
 
@@ -91,16 +91,40 @@
   <body class="bg-dark">
     <div class="container">
         <h1 class="py-5 text-center text-light">COVID-19 @Thailand</h1>
+        <div class="card-deck mb-3">
+            <div class="card bg-secondary text-white">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Total Confirmed</h5>
+                  <p class="card-text text-warning" style="font-size: 3rem;">
+                    41
+                  </p>
+                </div>
+            </div>
+            <div class="card bg-secondary  text-white">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Total Recovered</h5>
+                  <p class="card-text text-success" style="font-size: 3rem;">
+                    27
+                  </p>
+                </div>
+            </div>
+            <div class="card bg-secondary  text-white">
+                <div class="card-body text-center">
+                  <h5 class="card-title">Total Deaths</h5>
+                  <p class="card-text text-danger" style="font-size: 3rem;">
+                    0
+                  </p>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-12 col-lg-8">
                 <div class="card mb-3">
                     <div class="card-body  d-flex justify-content-center">
-                      <div id="curve_chart" style="width: 900px; height: 300px"></div>
+                      <div id="curve_chart" style="width: 900px; height: 400px"></div>
                     </div>
                 </div>
-                <p class="text-light">
-                  ref: <a href="https://ddc.moph.go.th/viralpneumonia/situation.php">https://ddc.moph.go.th/viralpneumonia/situation.php</a>
-                </p>
+                
             </div>
             <div class="col-12 col-lg-4">
                 <div class="card">
@@ -111,6 +135,15 @@
             </div>
         </div>
     </div>
+    <footer class="mt-5 py-3 bg-secondary">
+        <div class="container text-light">
+            <h6 class="pt-3">Reference</h6>
+            <ol>
+              <li><a href="https://ddc.moph.go.th/viralpneumonia/situation.php">https://ddc.moph.go.th/viralpneumonia/situation.php</a></li>
+              <li><a href="https://developers.google.com/chart/interactive/docs/points">https://developers.google.com/chart/interactive/docs/points</a></li>
+            </ol>
+        </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

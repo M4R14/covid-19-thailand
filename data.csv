@@ -1,4 +1,4 @@
-date,infected,healed,died
+date,Confirmed,Recovered,Deaths
 2020-02-26,40,27,0
 2020-02-25,37,24,0
 2020-02-24,35,21,0
