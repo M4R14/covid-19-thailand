@@ -89,44 +89,25 @@
     </script>
   </head>
   <body class="bg-dark">
-    <div class="container">
+    <div class="container-fluid">
         <h1 class="py-5 text-center text-light">COVID-19 @Thailand</h1>
-        <div class="card-deck mb-3">
-            <div class="card bg-secondary text-white">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Total Confirmed</h5>
-                  <p class="card-text text-warning" style="font-size: 3rem;">
-                    41
-                  </p>
-                </div>
-            </div>
-            <div class="card bg-secondary  text-white">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Total Recovered</h5>
-                  <p class="card-text text-success" style="font-size: 3rem;">
-                    27
-                  </p>
-                </div>
-            </div>
-            <div class="card bg-secondary  text-white">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Total Deaths</h5>
-                  <p class="card-text text-danger" style="font-size: 3rem;">
-                    0
-                  </p>
-                </div>
-            </div>
-        </div>
         <div class="row">
-            <div class="col-12 col-lg-8">
+            <div class="col-12 col-lg-3">
+                <div class="card mb-3">
+                    <div class="card-body  d-flex justify-content-center">
+                      <!-- <div id="curve_chart" style="width: 900px; height: 400px"></div> -->
+                      <img src="https://ddc.moph.go.th/viralpneumonia/img/declaration/banner_declaration.jpg" class="w-100" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
                 <div class="card mb-3">
                     <div class="card-body  d-flex justify-content-center">
                       <div id="curve_chart" style="width: 900px; height: 400px"></div>
                     </div>
                 </div>
-                
             </div>
-            <div class="col-12 col-lg-4">
+            <div class="col-12 col-lg-3">
                 <div class="card">
                     <div class="card-body p-0">
                       <div id="table_div"></div>
@@ -139,8 +120,8 @@
         <div class="container text-light">
             <h6 class="pt-3">Reference</h6>
             <ol>
-              <li><a href="https://ddc.moph.go.th/viralpneumonia/situation.php">https://ddc.moph.go.th/viralpneumonia/situation.php</a></li>
-              <li><a href="https://developers.google.com/chart/interactive/docs/points">https://developers.google.com/chart/interactive/docs/points</a></li>
+              <li><a target="_bank" href="https://ddc.moph.go.th/viralpneumonia/situation.php">https://ddc.moph.go.th/viralpneumonia/situation.php</a></li>
+              <li><a target="_bank" href="https://developers.google.com/chart/interactive/docs/points">https://developers.google.com/chart/interactive/docs/points</a></li>
             </ol>
         </div>
     </footer>
