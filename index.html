@@ -10,11 +10,36 @@
 
     <title>COVID-19 @Thailand</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['line', 'table' ]});
+      google.charts.load('current', {'packages':['line', 'table', 'bar' ]});
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChartTrigle);
       google.charts.setOnLoadCallback(drawTable);
 
+      async function drawChartTrigle() {
+        const rawData = await getDataTrigle();
+        var data = google.visualization.arrayToDataTable([
+          rawData.cols,
+          ...rawData.rows,
+        ]);
+
+        var options = {
+          chart: {
+            title: 'การเปลี่ยนแปลงรายวัน',
+            // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+          series: {
+            0: { color: '#f58231' },
+            1: { color: '#3cb44b' },
+            2: { color: '#e6194b' },
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      };
       async function drawTable() {
         const rawData = await getData();
         var data = new google.visualization.DataTable();
@@ -29,37 +54,6 @@
         table.draw(data, {showRowNumber: true, width: '100%', height: '100%'});
       }
 
-      function processData(allText) {
-        var allTextLines = allText.split(/\r\n|\n/);
-        var headers = allTextLines[0].split(',');
-        var lines = [];
-
-        for (var i=1; i<allTextLines.length; i++) {
-            var data = allTextLines[i].split(',');
-            if (data.length == headers.length) {
-
-                var tarr = [];
-                for (var j=0; j<headers.length; j++) {
-                    if (headers[j] == 'date') {
-                        tarr.push(new Date (data[j]));
-                    } else {
-                        tarr.push(Number(data[j]));
-                    }
-                }
-                lines.push(tarr);
-            }
-        }
-        // alert(lines);
-        return {
-            cols: headers,
-            rows: lines
-        };
-    }
-
-      async function getData() {
-        return await fetch('data.csv').then(res => res.text()).then(data => processData(data))
-      }
-
       async function drawChart() {
         const rawData = await getData();
         var data = google.visualization.arrayToDataTable([
@@ -69,7 +63,7 @@
 
         var options = {
           chart: {
-            title: 'COVID-19 in Thailand',
+            title: 'แนวโน้ม',
             // subtitle: 'in millions of dollars (USD)'
           },
           legend: 'none',
@@ -90,30 +84,33 @@
   </head>
   <body class="bg-dark">
     <div class="container-fluid">
-        <h1 class="py-5 text-center text-light">COVID-19 @Thailand</h1>
+        <h1 class="py-5 text-center text-light">COVID-19 ในประเทศไทย</h1>
         <div class="row">
-            <div class="col-12 col-lg-3">
-                <div class="card mb-3">
-                    <div class="card-body  d-flex justify-content-center">
-                      <!-- <div id="curve_chart" style="width: 900px; height: 400px"></div> -->
-                      <img src="https://ddc.moph.go.th/viralpneumonia/img/declaration/banner_declaration.jpg" class="w-100" >
-                    </div>
+          <div class="col-12 col-lg-3">
+            <div class="card mb-3">
+                <div class="card-body  d-flex justify-content-center">
+                  <!-- <div id="curve_chart" style="width: 900px; height: 400px"></div> -->
+                  <img src="https://ddc.moph.go.th/viralpneumonia/img/declaration/banner_declaration.jpg" class="w-100" >
                 </div>
             </div>
-            <div class="col-12 col-lg-6">
-                <div class="card mb-3">
-                    <div class="card-body  d-flex justify-content-center">
-                      <div id="curve_chart" style="width: 900px; height: 400px"></div>
-                    </div>
-                </div>
+            <div class="card">
+              <div class="card-body p-0">
+                <div id="table_div"></div>
+              </div>
             </div>
-            <div class="col-12 col-lg-3">
-                <div class="card">
-                    <div class="card-body p-0">
-                      <div id="table_div"></div>
-                    </div>
-                </div>
+          </div>
+          <div class="col-12 col-lg-9">
+            <div class="card mb-3">
+              <div class="card-body  d-flex justify-content-center">
+                <div id="curve_chart" class="w-100" style="height: 300px"></div>
+              </div>
             </div>
+            <div class="card mb-3">
+              <div class="card-body  d-flex justify-content-center">
+                <div id="columnchart_material" class="w-100" style="height: 250px"></div>
+              </div>
+            </div>
+          </div>
         </div>
     </div>
     <footer class="mt-5 py-3 bg-secondary">
