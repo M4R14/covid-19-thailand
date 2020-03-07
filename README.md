@@ -2,5 +2,11 @@
 
 **Website:** https://m4r14.github.io/covid-19-thailand/index.html
 
+## Get Code
+```sh
+$ git clone https://github.com/M4R14/covid-19-thailand.git
+$ cd covid-19-thailand
+```
+
 ## Tools
 - [Google Chart](https://developers.google.com/chart)
