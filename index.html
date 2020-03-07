@@ -12,28 +12,58 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="js/data.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['line', 'table', 'bar' ]});
+      google.charts.load('current', {
+        'packages': ['line', 'table', 'bar' ]
+      });
       google.charts.setOnLoadCallback(drawChart);
       google.charts.setOnLoadCallback(drawChartTrigle);
+      google.charts.setOnLoadCallback(drawChartTrigle2);
       google.charts.setOnLoadCallback(drawTable);
 
-      async function drawChartTrigle() {
+      async function drawChartTrigle2() {
         const rawData = await getDataTrigle();
         var data = google.visualization.arrayToDataTable([
-          rawData.cols,
-          ...rawData.rows,
+          [
+            rawData.cols[0],
+            rawData.cols[1],
+          ],
+          ...rawData.rows.map(d => [ d[0], d[1] ]),
         ]);
 
         var options = {
           chart: {
-            title: 'การเปลี่ยนแปลงรายวัน',
+            title: 'ผู้ป่วยที่มีอาการเข้าได้ตามนิยามต่อวัน (คน)',
+            // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+          },
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material2'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+
+      async function drawChartTrigle() {
+        const rawData = await getDataTrigle();
+        var data = google.visualization.arrayToDataTable([
+          [
+            rawData.cols[0],
+            rawData.cols[2],
+            rawData.cols[3],
+            rawData.cols[4],
+          ],
+          ...rawData.rows.map(d => [ d[0], d[2], d[3], d[4] ]),
+        ]);
+
+        var options = {
+          chart: {
+            title: 'การเปลี่ยนแปลงรายวัน (คน)',
             // subtitle: 'Sales, Expenses, and Profit: 2014-2017',
           },
           series: {
             0: { color: '#f58231' },
             1: { color: '#3cb44b' },
             2: { color: '#e6194b' },
-          }
+          },
         };
 
         var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
@@ -47,6 +77,7 @@
         data.addColumn('number', rawData.cols[1]);
         data.addColumn('number', rawData.cols[2]);
         data.addColumn('number', rawData.cols[3]);
+        data.addColumn('number', rawData.cols[4]);
         data.addRows(rawData.rows);
 
         var table = new google.visualization.Table(document.getElementById('table_div'));
@@ -57,8 +88,18 @@
       async function drawChart() {
         const rawData = await getData();
         var data = google.visualization.arrayToDataTable([
-            rawData.cols,
-            ...rawData.rows,
+            [
+              rawData.cols[0],
+              rawData.cols[2],
+              rawData.cols[3],
+              rawData.cols[4],
+            ],
+            ...rawData.rows.map(a => [
+              a[0],
+              a[2],
+              a[3],
+              a[4],
+            ]),
         ]);
 
         var options = {
@@ -66,14 +107,13 @@
             title: 'แนวโน้ม',
             // subtitle: 'in millions of dollars (USD)'
           },
-          legend: 'none',
-          pointSize: 30,
-          pointShape: 'square',
           series: {
-            0: { color: '#f58231' },
+            0: {
+              color: '#f58231',
+            },
             1: { color: '#3cb44b' },
             2: { color: '#e6194b' },
-          }
+          },
         };
 
         var chart = new google.charts.Line(document.getElementById('curve_chart'));
@@ -94,20 +134,25 @@
                 </div>
             </div>
             <div class="card">
-              <div class="card-body p-0">
-                <div id="table_div"></div>
+              <div class="card-body p-0" style="overflow: scroll; ">
+                <div id="table_div" style="height: calc(100vh - 250px); width: 500px;" ></div>
               </div>
             </div>
           </div>
           <div class="col-12 col-lg-9">
             <div class="card mb-3">
               <div class="card-body  d-flex justify-content-center">
-                <div id="curve_chart" class="w-100" style="height: 300px"></div>
+                <div id="curve_chart" class="w-100" style="height: 350px"></div>
               </div>
             </div>
             <div class="card mb-3">
-              <div class="card-body  d-flex justify-content-center">
-                <div id="columnchart_material" class="w-100" style="height: 250px"></div>
+              <div class="card-body">
+                <div id="columnchart_material"></div>
+              </div>
+            </div>
+            <div class="card mb-3">
+              <div class="card-body">
+                <div id="columnchart_material2"></div>
               </div>
             </div>
           </div>

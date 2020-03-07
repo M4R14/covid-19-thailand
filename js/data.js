@@ -40,6 +40,7 @@ async function getDataTrigle() {
                     0,
                     0,
                     0,
+                    0,
                 ];
             }
             return [
@@ -47,14 +48,19 @@ async function getDataTrigle() {
                 item[1] - nextItem[1],
                 item[2] - nextItem[2],
                 item[3] - nextItem[3],
+                item[4] - nextItem[4],
             ];
         };
         const nextData = rows.map(redata).filter(a => a != null);
         // console.log(nextData);
         return {
-            cols,
+            cols: cols,
             rows: nextData
         }
     });
 }
 
+
+// async function getDataTrigle() {
+//     return await fetch('data.csv').then(res => res.text()).then(data => processData(data))
+// }
