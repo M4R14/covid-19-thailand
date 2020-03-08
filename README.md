@@ -8,5 +8,11 @@ $ git clone https://github.com/M4R14/covid-19-thailand.git
 $ cd covid-19-thailand
 ```
 
+## Run
+```sh
+$ yarn
+$ yarn dev
+```
+
 ## Tools
 - [Google Chart](https://developers.google.com/chart)
