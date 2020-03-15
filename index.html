@@ -126,7 +126,7 @@
       }
     </style>
   </head>
-  <body class="">
+  <body class="bg-dark">
     <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">COVID-19 ในประเทศไทย</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -145,12 +145,6 @@
         <!-- <h1 class="py-5 text-center text-light">COVID-19 ในประเทศไทย</h1> -->
         <div class="row">
           <div class="col-12 col-lg-3">
-            <div class="card mb-3">
-                <div class="card-body  d-flex justify-content-center">
-                  <!-- <div id="curve_chart" style="width: 900px; height: 400px"></div> -->
-                  <img src="https://ddc.moph.go.th/viralpneumonia/img/declaration/banner_declaration.jpg" class="w-100" >
-                </div>
-            </div>
             <div class="card mb-3">
               <div class="card-body p-0" style="overflow: scroll; ">
                 <div id="table_div" style="height: calc(100vh - 30px); width: 500px;" ></div>
@@ -243,10 +237,28 @@
         getData().then(res => {
           console.log('addEventListener')
           const lastData = res.rows[0];
-          document.getElementById("total-check").innerText = lastData[1];
-          document.getElementById("total-confirmed").innerText = lastData[2];
-          document.getElementById("total-recovered").innerText = lastData[3];
-          document.getElementById("total-deaths").innerText = lastData[4];
+          const befor = res.rows[1];
+
+          const setDiff = (_val) => {
+            if (_val == 0) {
+              return ''
+            }
+
+            if (_val > 0) {
+              return  `<small style="font-size: 1.4rem;">(+${_val})</small>`
+            }
+
+            return  `<small style="font-size: 1.4rem;">(-${_val})</small>`
+          }
+
+          const setTotal = (index) => {
+            return lastData[index] + setDiff(lastData[index] - befor[index]);
+          }
+
+          document.getElementById("total-check").innerHTML = setTotal(1);
+          document.getElementById("total-confirmed").innerHTML = setTotal(2);
+          document.getElementById("total-recovered").innerHTML = setTotal(3);
+          document.getElementById("total-deaths").innerHTML = setTotal(4);
         })
       })
     </script>
