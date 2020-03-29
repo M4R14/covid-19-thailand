@@ -71,10 +71,7 @@
       explorer: {
         axis: 'horizontal',
         keepInBounds: true,
-        // actions: ['dragToZoom', 'rightClickToReset']
-        // maxZoomIn: 8.0,
         maxZoomOut: 1,
-        zoomDelta: 1,
       },
       chartArea: {
         width: '80%', height: '60%'
@@ -122,7 +119,6 @@
         // actions: ['dragToZoom', 'rightClickToReset']
         // maxZoomIn: 8.0,
         maxZoomOut: 1,
-        zoomDelta: 1,
       },
       series: {
         0: { title: 'ยืนยัน', color: '#dc3545', },
