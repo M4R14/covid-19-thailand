@@ -1,4 +1,4 @@
-google.charts.load('current', {
+  google.charts.load('current', {
     'packages': [
       'line', 'table', 'bar',
       'corechart'
@@ -59,9 +59,30 @@ google.charts.load('current', {
       legend: { position: 'bottom' },
     };
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material2'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+    // var chart = new google.charts.Bar(document.getElementById('columnchart_material2'));
+    // chart.draw(data, google.charts.Bar.convertOptions(options));
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_material2"));
+    chart.draw(data, {
+      title: 'พบผู้เฝ้าระวัง (คน/วัน)',
+      series: {
+        0: { title: 'เฝ้าระวัง' },
+      },
+      legend: { position: 'top' },
+      explorer: {
+        axis: 'horizontal',
+        keepInBounds: true,
+        // actions: ['dragToZoom', 'rightClickToReset']
+        // maxZoomIn: 8.0,
+        maxZoomOut: 1,
+        zoomDelta: 1,
+      },
+      chartArea: {
+        width: '80%', height: '60%'
+      },
+      vAxis: {
+        viewWindow: { min: 0 },
+      },
+    })
   }
 
   async function drawChartTrigle() {
@@ -89,10 +110,35 @@ google.charts.load('current', {
       isStacked: true,
     };
 
-    var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-    chart.draw(data, google.charts.Bar.convertOptions(options));
+    // var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+    var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_material"));
+    chart.draw(data, {
+      title: 'การเปลี่ยนแปลง (คน/วัน)',
+      // isStacked: true,
+      legend: { position: 'top' },
+      explorer: {
+        axis: 'horizontal',
+        keepInBounds: true,
+        // actions: ['dragToZoom', 'rightClickToReset']
+        // maxZoomIn: 8.0,
+        maxZoomOut: 1,
+        zoomDelta: 1,
+      },
+      series: {
+        0: { title: 'ยืนยัน', color: '#dc3545', },
+        1: { title: 'รักษาหาย', color: '#3cb44b' },
+        2: { title: 'เสียชีวิต', color: '#6c757d' },
+      },
+      chartArea: {
+        width: '80%', height: '60%'
+      },
+      vAxis: {
+        viewWindow: { min: 0 },
+      },
+    });
+    // chart.draw(data, google.charts.Bar.convertOptions(options));
   };
+
   async function drawTable() {
     const rawData = await getData();
     var data = new google.visualization.DataTable();
@@ -201,7 +247,33 @@ google.charts.load('current', {
       }
     };
 
-    var chart = new google.charts.Line(document.getElementById('curve_chart'));
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+    // var chart = new google.charts.Line(document.getElementById('curve_chart'));
+    chart.draw(data, {
+      title: 'ยอดสะสม (คน)',
+      curveType: 'function',
+      legend: { position: 'top' },
+      // width: 900,
+      chartArea: {
+        width: '80%', height: '60%'
+      },
+      explorer: {
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomOut: 1,
+      },
+      series: {
+        0: { title: 'ยืนยัน', color: '#dc3545', },
+        1: { title: 'รักษาหาย', color: '#3cb44b' },
+        2: { title: 'เสียชีวิต', color: '#6c757d' },
+      },
+      vAxis: {
+        viewWindow: { min: 0 },
+      },
+      hAxis: {
+        title: 'ช่วงเวลา',
+      },
+    });
 
-    chart.draw(data, google.charts.Line.convertOptions(options));
+    // chart.draw(data, google.charts.Line.convertOptions(options));
   }
